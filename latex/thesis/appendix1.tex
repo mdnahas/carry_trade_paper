@@ -1,0 +1,132 @@
+\chapter{Liao's Model}  \label{model}
+
+% Otherwise numbering starts at 1.
+\renewcommand{\theequation}{A\thechapter.\arabic{equation}}
+
+Liao's model is based around a firm issuing debt in either a domestic or foreign market.  A company wishing to raise 1B USD can raise it domestically by just issuing a bond.  Raising the money overseas is more complicated.  The firm must issue 900 EUR worth of bonds, then exchange the proceeds for 1B USD, and also hedge its EUR/USD exposure by buying an FX forward.
+
+
+\section{Model Overview}
+
+The model has four markets: a USD (domestic) debt market, a EUR (foreign) debt market, an FX spot market and an FX forward market.  The model has 4 actors: the representative firm issuing debt, an investor who buys exclusively USD debt, a similar investor in EUR debt, and an FX arbitrageur.  The investors have downward sloping demand curves.  The FX arbitrageur has a downward sloping demand curve for FX positions.
+
+The actions of the representative firm connects the prices in all the markets.  The firm determines the amount to issue domestically based on the domestic investor's demand curve.  The quantity issued overseas depends on the FX spot price, the foreign investor's demand curve, and the FX arbitrageur's demand for risk in FX forwards.  Minimizing the firm's costs produces the amount issued domestic and overseas.  Qualitatively, if the CIP basis $b_{EUR}$ is positive, the firm is more likely to issue foreign debt.  If the credit spread difference is positive, the firm is more likely to issue domestically.  
+
+Liao allows for two kinds of exogenous shocks.  ``Credit demand shocks'' affect the demand by one investor, irrespective of the other investor.  An example might be a central bank purchasing debt in their local market.  The other kind of shock is a ``CIP shock'', where the FX forward market moves irrespective of the FX spot market.  An example is a new regulation that requires insurance companies to hedge their FX exposure.
+
+\section{Model Equations}
+
+I'll now cover the equations governing the actors in the model.
+% Intro paragraph?
+%In this subsection, I'll go through the equations of the model.
+
+The \textbf{representative firm} must raise a fixed amount of debt $D$, but has the choice of how much to raise in each currency.  Letting $\mu$ be the share raised in USD gives us the condition:
+\begin{equation}
+  \min_{\mu \in [0,1]} \  \mu (1 + r_{corp,USD}) + (1-\mu) \frac{F}{S} (1 + r_{corp,EUR})
+\end{equation}
+
+\noindent which becomes
+\begin{align*}
+     \min_{\mu \in [0,1]}  & \ \mu (\frac{S}{F}(1 + r_{corp,USD}) - (1 + r_{corp,EUR})) \\
+%     \min_{\mu \in [0,1]}  & \ \mu (\frac{S}{F}(1 + r_{swap,USD}) - (1 + r_{swap,EUR})  + \frac{S}{F}(r_{corp, USD} - r_{swap, USD}) - (r_{corp, EUR} - r_{swap, EUR})) \\
+     \min_{\mu \in [0,1]}  & \ \mu (b_{EUR} + \frac{S}{F}(r_{corp, USD} - r_{swap, USD}) - (r_{corp, EUR} - r_{swap, EUR}))
+\end{align*}
+
+\noindent And if $\frac{S}{F} \approx 1$\label{SF_approx} we can get 
+\begin{equation}
+  \min_{\mu \in [0,1]}  \ \mu(b_{EUR} -c_{EUR})
+\end{equation}
+
+Where $b_{EUR}$ is the CIP basis using the swap rate and $c_{EUR}$ is the credit spread difference.  If $b_{EUR} > c_{EUR}$, then the representative firm gets all of its funds domestically.  If $b_{EUR} < c_{EUR}$, then all from overseas.
+
+The \textbf{USD investor} only buys USD-denominated bonds.  They borrow at the swap rate $r_{swap, USD}$ and buy bonds with promised yield $Y_{USD}$.  The bond has $\pi$ chance of default, in which case it pays $L$.  The payoff's variance $V$ should be $\pi(1-\pi)(Y+L)^2$ but the quadratic term makes the equations complicated and, for tractability, $V$ is assumed to be an exogenous constant.  The investor's appetite for risk is a mean-variance trade-off with tolerance $\tau$.  Choosing investment amount $X_{USD}$ solves the following:
+\begin{equation}
+  \max_{X_{USD}} X_{USD}((1 - \pi)Y_{USD} - \pi L -r_{swap, USD}) -\frac{1}{2\tau}X_{USD}^2V
+\end{equation}
+
+\noindent which results in 
+\begin{equation}
+  X_{USD} = \frac{\tau}{V}((1-\pi)Y_{USD} - \pi L - r_{swap,USD})
+\end{equation}
+
+The \textbf{EUR investor} is similar.  It is worth noting that probability of default $\pi$, payout in default $L$, variance $V$, and risk tolerance $\tau$ are exactly the same as the USD investors.  The governing equation is: 
+\begin{equation}
+  X_{EUR} = \frac{\tau}{V}((1-\pi)Y_{EUR} - \pi L - r_{swap,EUR})
+\end{equation}
+
+
+The \textbf{FX arbitrageur} has wealth $W$ in EUR.  They can devote this wealth either to CIP arbitrage or to an alternative investment that pays $f(I)$, where $I$ the amount invested.  The CIP arbitrage pays $sb_{swap, EUR}$ where $s$ is the size of the position.  The arbitrageur's wealth is not decreased by the size of the CIP arbitrage position, but by the ``haircut'' $\gamma |s|$.  In REPO, the haircut is the portion of risk that the borrower is forced to retain and is inversely related to leverage.  The arbitrageur chooses $s$ to solve:
+\begin{equation}
+  \max_s \ sb_{swap,EUR}  + f(W - \gamma |s|)
+\end{equation}
+
+The result, when solved for $b$, is $b = \sign[s] \gamma f'(W-\gamma |s| )$.  If the alternative investment is quadratic with $f(I) = \phi_0I - \frac{1}{2} \phi I^2$, then we have
+\begin{equation}
+  b = \sign[s]\gamma(\phi_0 - \phi W + \phi \gamma |s|)
+\end{equation}
+
+
+% Liao had this earlier.  I like it here.
+
+The \textbf{market clearing condition} for bond markets is that supply matches demand.  Liao, at this point, introduces the exogenous bond demand shock $\epsilon_c$, which might represent demand for bonds from a central bank.
+\begin{align}
+    X_{USD} & = & \mu D \\
+    X_{EUR} + \epsilon_c & = & (1-\mu) D 
+\end{align}
+
+%\todo{ At this point, Liao has an equation for the credit spread.  Not sure why.  Moved it later}
+
+
+In \textbf{equilibrium}, the CIP basis and credit spread difference control the behavior of the representative firm.  The equation for the CIP basis is:
+\begin{equation}
+   b_{EUR} = -\gamma^2 (D(1-\mu) + \epsilon_b)
+\end{equation}
+
+\noindent where $\epsilon_b$ represents exogenous hedging demand.  As the haircut $\gamma$ gets smaller (which is equivalent to higher leverage), the CIP deviations get smaller.  The other factor represents the net demand for hedging.
+
+For credit spread, the identity $Y_{EUR} - Y_{USD} = c + (r_{EUR} - r_{USD})$ and a first-order approximation of $\pi$ at 0 produces the equation:
+\begin{equation}
+  c_{EUR} = \frac{V}{\tau}( (1-2\mu)D - \epsilon_c) 
+\end{equation}
+
+\noindent The factor $V/\tau$ is the elasticity of bond demand and is the ratio of volatility to risk tolerance.  The other factor represents the net supply of bonds in EUR over USD. 
+
+These CIP basis and credit spread then govern the behavior of the representative firm:
+\begin{equation} 
+  \mu = \left\{ \begin{array}{r@{\quad:\quad}l}
+                                               1 & b_{EUR} > c_{EUR} \\ 
+                                               0 & b_{EUR} < c_{EUR}
+                          \end{array} \right.
+\end{equation}
+
+
+\section{Liao's Predictions}
+
+Liao made four predictions.  First, \label{first_prediction} if there is a pricing violation in one market (FX or credit), it can spill into the other market.  In the model we see that $\epsilon_c \uparrow$ results in $c \downarrow$ and $ \mu \uparrow$ and then $b \downarrow$.  Similarly, if $\epsilon_b \uparrow$, then $b \downarrow$ and $ \mu \downarrow$ resulting in $c \downarrow$.  Thus, for either kind of shock, $b$ and $c$ move in the same direction.  So, the first prediction is that $b$ and $c$ respond in the same direction.
+
+The second prediction is that costs affect where bonds get issued.  If $(c-b) \downarrow$ then $\mu \downarrow$.  Here, $c-b$ is the net deviation in cost between issuing in EUR and USD.
+
+The third prediction is that increasing the amount issued will decrease the deviations.  Specifically, $\frac{\partial |c-b|}{\partial D} < 0$ and $\lim_{D \to \infty} c-b = 0$.  
+
+The last prediction is that the absolute value of both $c$ and $b$ react similarly to many changes in parameters.  If the haircut $\gamma$ increases, both increase.  If the investors risk tolerance $\tau$ increases, both increase.  If the bond's variance $V$ increases, both increase.
+
+
+% The repeated action of the representative firm will not align an individual market, but will make sure the deviations in FX forward and credit offset.
+
+% Second, the amount of foreign-issued debt will be positively correlated with the profitability of issuing foreign debt.  Also, the profitability is equal to the credit spread difference plus the CIP basis.  
+
+% \begin{equation}
+%   \begin{aligned}
+%  profit & = \frac{S}{F} (1 + r_{corp, USD}) - (1 + r_{corp, EUR}) \\
+%           & = \frac{S}{F} (1 + r_{swap, USD}) - (1 + r_{swap, EUR}) + \frac{S}{F}(r_{corp, USD} - r_{swap, USD}) - (r_{corp, EUR} - r_{swap, EUR})\\
+%           & = b_{EUR} + \frac{S}{F}(r_{corp, USD} - r_{swap, USD}) - (r_{corp, EUR} - r_{swap, EUR})\\
+%           & \approx b_{EUR} - c_{EUR}  \qquad \mbox{Assuming $\frac{S}{F} \approx 1$} 
+%   \end{aligned}
+% \end{equation}
+
+% \todo{ Profitability isn't quite there.}
+
+% Third, an exogenous increase in the debt issued by the representative firm will align the CIP basis and credit spread difference.
+
+% Lastly, a limit in one market (FX or credit) will ``become a constraining friction in the other market.''
+

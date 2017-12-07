@@ -1,0 +1,2 @@
+https://data.snb.ch/en/topics/ziredev#!/cube/rendoblid?fromDate=1998-01-01&toDate=2017-06-30&dimSel=D0(1J,2J,3J,4J,5J,6J,7J,8J,9J,10J0,20J,30J)
+
