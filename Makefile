@@ -13,6 +13,8 @@
 #
 # Python library dependencies
 #
+python_2.7/swap_rate_lib.py: python_2.7/price_and_yield_lib.py
+
 python_2.7/price_and_yield_on_culled_bonds.py: python_2.7/price_and_yield_lib.py
 python_2.7/process_prices_Liao.py: python_2.7/rating_lib.py python_2.7/swap_rate_lib.py
 python_2.7/add_CIP_XCBS.py: python_2.7/swap_rate_lib.py
@@ -44,7 +46,7 @@ data/Govt/govt20.csv: python_2.7/translate_USD.py python_2.7/translate_EUR.py py
 	if [ -a data/Govt/govt20.csv ] ; then mv data/Govt/govt*.csv /tmp ; fi ;
 	python_2.7/translate_USD.py raw_data/Fred/ data/Govt/
 	python_2.7/translate_EUR.py raw_data/Bundesbank/ data/Govt/
-	python_2.7/translate_JPY.py raw_data data/Govt/
+	python_2.7/translate_JPY.py raw_data/Bank_of_Japan/ data/Govt/
 	python_2.7/translate_GBP.py raw_data/Bank_of_England/ data/Govt/
 	python_2.7/translate_CHF.py raw_data/Swiss_National_Bank/ data/Govt/
 	python_2.7/translate_AUD.py raw_data/Reserve_Bank_of_Australia/ data/Govt/
@@ -58,11 +60,11 @@ data/Govt/govt20.csv: python_2.7/translate_USD.py python_2.7/translate_EUR.py py
 #
 data/Liao/bonds.csv: python_2.7/cull_bonds_Liao.py
 	mkdir -p data/Liao
-	python_2.7/cull_bonds_Liao.py raw_data/ $@
+	python_2.7/cull_bonds_Liao.py raw_data/Bloomberg_bonds/ $@
 
 data/Liao/prices/2017-3-8: python_2.7/price_and_yield_on_culled_bonds.py data/Liao/bonds.csv
 	mkdir -p data/Liao/prices
-	python_2.7/price_and_yield_on_culled_bonds.py data/Liao/bonds.csv raw_data/ data/Liao/prices/
+	python_2.7/price_and_yield_on_culled_bonds.py data/Liao/bonds.csv raw_data/Bloomberg_bonds/ data/Liao/prices/
 
 data/Liao/prices_processed/2017-3-8: python_2.7/process_prices_Liao.py data/Liao/prices/2017-3-8
 	mkdir -p data/Liao/prices_processed
@@ -86,7 +88,7 @@ data/Govt/bonds.csv: data/Liao/bonds.csv
 
 data/Govt/prices/2017-3-8: python_2.7/price_and_yield_on_culled_bonds.py data/Govt/bonds.csv
 	mkdir -p data/Govt/prices
-	python_2.7/price_and_yield_on_culled_bonds.py data/Govt/bonds.csv raw_data/ data/Govt/prices
+	python_2.7/price_and_yield_on_culled_bonds.py data/Govt/bonds.csv raw_data/Bloomberg_bonds/ data/Govt/prices
 
 data/Govt/prices_processed/2017-3-8: python_2.7/process_prices_Govt.py data/Govt/prices/2017-3-8 data/Govt/govt20.csv
 	mkdir -p data/Govt/prices_processed
@@ -164,61 +166,61 @@ latex/thesis/images/SwapVsGovt_all_20Y.eps: python_2.7/plot_swap_vs_govt.py data
 # Swap-rate reproductions of Liao's Figure 4
 #
 latex/thesis/images/Liao2016Figure4_AUD_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py AUD AUD_err CIP_basis_XCBS_AUD data/Liao/regression_results_withCIP.csv $@ CIP_basis_AUD
+	python_2.7/plot_graph.py AUD AUD_err CIP_basis_XCBS_AUD data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_CAD_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py CAD CAD_err CIP_basis_XCBS_CAD data/Liao/regression_results_withCIP.csv $@ CIP_basis_CAD
+	python_2.7/plot_graph.py CAD CAD_err CIP_basis_XCBS_CAD data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_CHF_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py CHF CHF_err CIP_basis_XCBS_CHF data/Liao/regression_results_withCIP.csv $@ CIP_basis_CHF
+	python_2.7/plot_graph.py CHF CHF_err CIP_basis_XCBS_CHF data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_EUR_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py EUR EUR_err CIP_basis_XCBS_EUR data/Liao/regression_results_withCIP.csv $@ CIP_basis_EUR
+	python_2.7/plot_graph.py EUR EUR_err CIP_basis_XCBS_EUR data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_GBP_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py GBP GBP_err CIP_basis_XCBS_GBP data/Liao/regression_results_withCIP.csv $@ CIP_basis_GBP
+	python_2.7/plot_graph.py GBP GBP_err CIP_basis_XCBS_GBP data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_JPY_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py JPY JPY_err CIP_basis_XCBS_JPY data/Liao/regression_results_withCIP.csv $@ CIP_basis_JPY
+	python_2.7/plot_graph.py JPY JPY_err CIP_basis_XCBS_JPY data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_NOK_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py NOK NOK_err CIP_basis_XCBS_NOK data/Liao/regression_results_withCIP.csv $@ CIP_basis_NOK
+	python_2.7/plot_graph.py NOK NOK_err CIP_basis_XCBS_NOK data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_NZD_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py NZD NZD_err CIP_basis_XCBS_NZD data/Liao/regression_results_withCIP.csv $@ CIP_basis_NZD
+	python_2.7/plot_graph.py NZD NZD_err CIP_basis_XCBS_NZD data/Liao/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_SEK_xcbs.eps: python_2.7/plot_graph.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_graph.py SEK SEK_err CIP_basis_XCBS_SEK data/Liao/regression_results_withCIP.csv $@ CIP_basis_SEK
+	python_2.7/plot_graph.py SEK SEK_err CIP_basis_XCBS_SEK data/Liao/regression_results_withCIP.csv $@
 
 #
 # Govt-rate reproductions of Liao's Figure 4
 #
 latex/thesis/images/Liao2016Figure4_AUD_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py AUD AUD_err CIP_basis_XCBS_AUD data/Govt/regression_results_withCIP.csv $@ CIP_basis_AUD
+	python_2.7/plot_graph.py AUD AUD_err CIP_basis_XCBS_AUD data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_CAD_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py CAD CAD_err CIP_basis_XCBS_CAD data/Govt/regression_results_withCIP.csv $@ CIP_basis_CAD
+	python_2.7/plot_graph.py CAD CAD_err CIP_basis_XCBS_CAD data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_CHF_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py CHF CHF_err CIP_basis_XCBS_CHF data/Govt/regression_results_withCIP.csv $@ CIP_basis_CHF
+	python_2.7/plot_graph.py CHF CHF_err CIP_basis_XCBS_CHF data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_EUR_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py EUR EUR_err CIP_basis_XCBS_EUR data/Govt/regression_results_withCIP.csv $@ CIP_basis_EUR
+	python_2.7/plot_graph.py EUR EUR_err CIP_basis_XCBS_EUR data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_GBP_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py GBP GBP_err CIP_basis_XCBS_GBP data/Govt/regression_results_withCIP.csv $@ CIP_basis_GBP
+	python_2.7/plot_graph.py GBP GBP_err CIP_basis_XCBS_GBP data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_JPY_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py JPY JPY_err CIP_basis_XCBS_JPY data/Govt/regression_results_withCIP.csv $@ CIP_basis_JPY
+	python_2.7/plot_graph.py JPY JPY_err CIP_basis_XCBS_JPY data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_NOK_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py NOK NOK_err CIP_basis_XCBS_NOK data/Govt/regression_results_withCIP.csv $@ CIP_basis_NOK
+	python_2.7/plot_graph.py NOK NOK_err CIP_basis_XCBS_NOK data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_NZD_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py NZD NZD_err CIP_basis_XCBS_NZD data/Govt/regression_results_withCIP.csv $@ CIP_basis_NZD
+	python_2.7/plot_graph.py NZD NZD_err CIP_basis_XCBS_NZD data/Govt/regression_results_withCIP.csv $@
 
 latex/thesis/images/Liao2016Figure4_SEK_govt.eps: python_2.7/plot_graph.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_graph.py SEK SEK_err CIP_basis_XCBS_SEK data/Govt/regression_results_withCIP.csv $@ CIP_basis_SEK
+	python_2.7/plot_graph.py SEK SEK_err CIP_basis_XCBS_SEK data/Govt/regression_results_withCIP.csv $@
 
 #
 # X-Y plots for swap data
