@@ -3,10 +3,12 @@
 This repository holds the code and text to generate my thesis for my
 Masters of Arts in Economic from the University of Texas at Austin.
 
+The [PDF](https://mdnahas.github.io/doc/nahas_econ_masters_thesis.pdf) is available on [my personal website](https://mdnahas.github.io/).
+
 **_The repository is missing proprietary Bloomberg data.  Please
   contact me at michael at nahas dot com to get the data._**
 
-Requirements:
+To compile requires:
 * Quantlib (finance library), version 1.9.2
   * Quantlib-SWIG (python interface to Quantlib), version 1.9
 * R
