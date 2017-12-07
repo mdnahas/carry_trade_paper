@@ -34,7 +34,8 @@ process_one_file <- function(infile_directory, filename) {
 	 return(NULL)
     })
     if ( is.null(fitted)) {
-        next
+	 write(paste0("Error?  Fit was null for file ", filename), stderr())
+	 return(NULL)
     }
     #robust = coeftest(fitted, vcov=vcovHC(fitted, "HC1"))[,2]
     robust = lmtest::coeftest(fitted, multiwayvcov::cluster.vcov(fitted, df$firm))[,2]

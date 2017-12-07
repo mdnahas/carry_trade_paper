@@ -7,19 +7,23 @@ Masters of Arts in Economic from the University of Texas at Austin.
   contact me at michael at nahas dot com to get the data._**
 
 Requirements:
-* Quantlib (finance library)
-  * python interface to Quantlib
+* Quantlib (finance library), version 1.9.2
+  * Quantlib-SWIG (python interface to Quantlib), version 1.9
 * R
   * lmtest library 
   * sandwich library 
   * multiwayvcov library 
   * parallel library 
-* python
-  * matplotlib
-  * scipy
-  * numpy
-  * pandas
+* python version 2.7
+  * matplotlib library
+  * scipy library
+  * numpy library
+  * pandas library
 * LaTeX (pdflatex)
+  * graphicx package
+  * hyperref package
+  * epsfig package
+  * _others, used by UT style file_
 * make
 
 NOTE: C# was used to download the data from Bloomberg, but is not
