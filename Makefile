@@ -111,10 +111,10 @@ data/Govt/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data/G
 # Corporate 5Y CIP basis rate, using govt to convert bonds to 5 years equivalents
 #
 
-data/Corp5Y/prices_processed/2017-3-8: python_2.7/process_prices_Corp5Y.py data/Govt/prices/2017-3-8 data/Govt/govt20.csv
+data/Corp5Y/prices_processed/2017-3-8: python_2.7/process_prices_Corp.py data/Govt/prices/2017-3-8 data/Govt/govt20.csv
 	mkdir -p data/Corp5Y
 	mkdir -p data/Corp5Y/prices_processed
-	python_2.7/process_prices_Corp5Y.py raw_data/currency_prices/ data/Govt/ data/Govt/prices/ data/Corp5Y/prices_processed/
+	python_2.7/process_prices_Corp.py raw_data/currency_prices/ data/Govt/ data/Govt/prices/ 5 3 7 data/Corp5Y/prices_processed/
 
 data/Corp5Y/regression_results.csv: R/regress_Corp_parallel.R data/Corp5Y/prices_processed/2017-3-8
 	Rscript R/regress_Corp_parallel.R data/Corp5Y/prices_processed/ $@
@@ -126,6 +126,12 @@ data/Corp5Y/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data
 	python_2.7/add_CIP_XCBS_Govt.py raw_data/currency_prices/ data/Govt/ 5 data/Corp5Y/regression_results_masked.csv $@
 
 
+#
+# compute max CIP basis spread
+#
+
+data/maxCIPBasisSpread5Y.csv: python_2.7/print_maxCIPspread.py data/Corp5Y/regression_results_withCIP.csv
+	python_2.7/print_maxCIPspread.py data/Corp5Y/regression_results_withCIP.csv raw_data/currency_prices/ data/Govt/ data/Corp5Y/regression_results_withCIP.csv 5 $@
 
 
 #

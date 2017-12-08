@@ -30,17 +30,15 @@ curr_map = { "USD":0,
              }
 
     
-if len(sys.argv) != 5:
-    raise Exception("bad number of arguments.  Saw " + str(len(sys.argv)) + " expected 5.  Program swap_data_dir govt_data_dir input_directory output_directory")
+if len(sys.argv) != 8:
+    raise Exception("bad number of arguments.  Saw " + str(len(sys.argv)) + " expected 8.  Program swap_data_dir govt_data_dir input_directory duration lower_bound upper_bound output_directory")
 swap_data_directory = sys.argv[1]
 govt_data_directory = sys.argv[2]
 infile_directory = sys.argv[3]
-outfile_directory = sys.argv[4]
-
-
-reference_duration = 5.0
-lower_bound = 3.0
-upper_bound = 7.0
+reference_duration = float(sys.argv[4]) # 5.0
+lower_bound = float(sys.argv[5]) # 3.0
+upper_bound = float(sys.argv[6]) # 7.0
+outfile_directory = sys.argv[7]
 
         
 swap_rates = srl.SwapRateLibrary()
@@ -75,7 +73,7 @@ for filename in os.listdir(infile_directory):
                 continue
             
             try:
-                swap_rates.get_Method2_factor("USD", currency, date, 5.0)
+                swap_rates.get_Method2_factor("USD", currency, date, reference_duration)
             except Exception as e:
                 continue
             
@@ -157,7 +155,7 @@ for filename in os.listdir(infile_directory):
                     continue
                 
                 try:
-                    fx_adjustment = swap_rates.get_Method2_factor("USD", currency, date, 5.0)
+                    fx_adjustment = swap_rates.get_Method2_factor("USD", currency, date, reference_duration)
                 except Exception as e:
                     print("Skipping " + isin + " on " + currency + "," + str(date) + "," + str(duration) + "Y because of exception while getting fx_adjustment:" + str(e))
                     continue
