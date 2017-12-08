@@ -16,14 +16,16 @@ from scipy.stats import linregress
 import numpy as np
 
 # Check num of args - note sys.argv[0] is the script name
-if len(sys.argv) != 4:
-    raise Exception("bad number of arguments.  Saw " + str(len(sys.argv)) + " expected 3: programname TRUE/FALSE infile outfile")
+if len(sys.argv) != 6:
+    raise Exception("bad number of arguments.  Saw " + str(len(sys.argv)) + " expected 5: programname TRUE/FALSE infile outfile intercept slope")
 
 
 # sys.argv[0] is the script name
 bounds = sys.argv[1]
 infilename = sys.argv[2]
-outfilename = sys.argv[3]
+intercept = float(sys.argv[3])
+slope = float(sys.argv[4])
+outfilename = sys.argv[5]
 
 currencies_except_USD = [ 
              "AUD",
@@ -58,11 +60,16 @@ data = pd.read_csv(infilename)  # do not parse dates.
 dates_raw = data["date"].tolist()
 dates = [ datetime.datetime.strptime( d, "%Y-%m-%d").date() for d in dates_raw]
 
+if bounds.lower() == "true":
+    dates = [ d for d in dates if (d >= datetime.date(2004,1,1) and d <= datetime.date(2016, 7, 31))]
+
 # scale to basis points and convert to array
 CSDs = dict()
 CIPs = dict()
 for curr_index in range(0,9):
     curr = currencies_except_USD[curr_index]
+    if bounds.lower() == "true" and (curr == "NOK" or curr == "SEK" or curr == "NZD"):
+        continue
     CSDs[curr] = np.array([ 10000*d for d in data[curr].tolist()])
     CIPs[curr] = np.array([ 10000*d for d in data["CIP_basis_XCBS_" + curr].tolist()])
 
@@ -70,18 +77,18 @@ for curr_index in range(0,9):
 #mean_PlyCount = sliding_mean(chess_data.groupby("Year").PlyCount.mean().values,  
 #sem_PlyCount = sliding_mean(chess_data.groupby("Year").PlyCount.apply(sem).mul(1.96).values,  
 
-CSDall_list = []
-CIPall_list = []
-for curr_index in range(0,9):
-    curr = currencies_except_USD[curr_index]
-    CSD_curr_list = [ 10000*d for d in data[curr].tolist()]
-    CIP_curr_list = [ 10000*d for d in data["CIP_basis_XCBS_" + curr].tolist()]
-    for i in range(0, len(CSD_curr_list)):
-        if not math.isnan(CSD_curr_list[i]) and not math.isnan(CIP_curr_list[i]):
-            CSDall_list.append(CSD_curr_list[i])
-            CIPall_list.append(CIP_curr_list[i])
-#line_fit = np.polyfit(CSDall_list, CIPall_list, 1)
-line_fit = linregress(CSDall_list, CIPall_list)
+# CSDall_list = []
+# CIPall_list = []
+# for curr_index in range(0,9):
+#     curr = currencies_except_USD[curr_index]
+#     CSD_curr_list = [ 10000*d for d in data[curr].tolist()]
+#     CIP_curr_list = [ 10000*d for d in data["CIP_basis_XCBS_" + curr].tolist()]
+#     for i in range(0, len(CSD_curr_list)):
+#         if not math.isnan(CSD_curr_list[i]) and not math.isnan(CIP_curr_list[i]):
+#             CSDall_list.append(CSD_curr_list[i])
+#             CIPall_list.append(CIP_curr_list[i])
+# #line_fit = np.polyfit(CSDall_list, CIPall_list, 1)
+# line_fit = linregress(CSDall_list, CIPall_list)
   
 # You typically want your plot to be ~1.33x wider than tall.  
 # Common sizes: (10, 7.5) and (12, 9)  
@@ -106,7 +113,10 @@ ax.get_yaxis().tick_left()
 if bounds.lower() == "true":
     plt.ylim(-100, 50)  
     plt.xlim(-150, 125)  
-  
+else:
+    plt.ylim(-150, 150)  
+    plt.xlim(-200, 150)  
+      
 # Make sure your axis ticks are large enough to be easily read.  
 # You don't want your viewers squinting to read your plot.  
 #plt.xticks(range( datetime.date(1998,1,1), datetime.date(2017,4,30)), fontsize=14)  
@@ -131,6 +141,8 @@ marker_size = plt.rcParams['lines.markersize'] ** 2  ## The default.  Area.
 marker_size *= .4
 for curr_index in range(0,9):
     curr = currencies_except_USD[curr_index]
+    if bounds.lower() == "true" and (curr == "NOK" or curr == "SEK" or curr == "NZD"):
+        continue
     plt.scatter(CSDs[curr], CIPs[curr], color=color_map[curr], label=curr, s=marker_size)  
 #    plt.plot(dates, cip_basis, color="#BB0000", lw=2)  
 
@@ -138,20 +150,21 @@ for curr_index in range(0,9):
 # Trendline
 (min_x, max_x) = plt.xlim()
 (min_y, max_y) = plt.ylim()
-func = np.poly1d([line_fit[0], line_fit[1]])
+#func = np.poly1d([line_fit[0], line_fit[1]])
+func = np.poly1d([slope, intercept])
 plt.plot([min_x, max_x], [func(min_x), func(max_x)], "r--")
 
-if bounds.lower() == "true":
-    min_y += 10
+#if bounds.lower() == "true":
+min_y += 10
 
 # Trendline eqn
-plt.text(max_x, min_y, "Basis = {:.4f}*RCSD + {:.4f}\nRsq: {:.4f}".format(line_fit[0], line_fit[1], line_fit[2]**2), fontsize=16, color="red", horizontalalignment='right', verticalalignment='bottom')
+plt.text(max_x, min_y, "Basis = {:.4f}*RCSD + {:.4f}".format(slope, intercept), fontsize=20, color="red", horizontalalignment='right', verticalalignment='bottom')
 
 # Make the title big enough so it spans the entire plot, but don't make it  
 # so big that it requires two lines to show.  
-plt.title("CIP basis vs. RCSD", fontsize=22)  
+plt.title("CIP Basis vs. RCSD", fontsize=22)  
 
-plt.xlabel("Residualized Credit Spread Diff. (in basis points)", fontsize=16)  
+plt.xlabel("RCSD (in basis points)", fontsize=16)  
 
 # Legend
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
@@ -160,4 +173,4 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 # You can also save it as a PDF, JPEG, etc.  
 # Just change the file extension in this call.  
 # bbox_inches="tight" removes all the extra whitespace on the edges of your plot.  
-plt.savefig(outfilename, bbox_inches="tight")
+plt.savefig(outfilename, bbox_inches="tight");  

@@ -1,0 +1,98 @@
+Comment:
+  # everything after #
+
+default type on console is a vector.
+
+Character (called "string" in other languages)
+  character vector is c("Hello", "World")
+  paste0() does concatenation
+  
+Boolean
+  TRUE or FALSE
+  & and | are vector operators, performing element-by-element operations
+  && and || only look at first element (I THINK).  These are the ones usually used.
+
+Vector:
+  index starting at 1
+  create arbitrary with c(1,2,3)
+  create range with 1:100
+  create jumping sequence with seq(from=1, to=100, by=5)
+  allows vector/parallel operations 1 + c(1,2,3) = c(2,3,4)
+  ! if vector sizes are mismatched, smaller is repeated!
+  can extend vector by assigning to new index.  Intervening places filled with NA.
+  can preallocate vector by length(vec) <- 10000
+  concatentate a and b by c(a,b)   (must be same type or values will be coerced)
+  creating empty vector requires typename "vector("double"), "vector("integer"), etc.
+  read by vector[index].  v[1]
+  read subvector by vector[range].   v[1:3]
+  read subset by using vector.   v[c(1,3)]
+  read subset of values by boolean.   v[v %% 3 == 0]
+     -> v%%3 == 0 actually creates vector of booleans and, then, only true ones are included!
+  read all EXCEPT values using negative indices
+
+Array:
+  higher dimensional vector - requires dimension attribute
+  array( c(1,2,3,4,5,6), dim=c(2,3))
+  matrix is a two dimensional array: matrix(data=c(1,2,3,4,5,6), nrow=2, ncol=3)
+  read with a[1,3]
+  read row with a[1,]
+  read column with a[,1]
+  read subarray a[c(1,2),c(1,2)], etc.
+  can call function on subsection of array with apply()
+  
+List:
+  can contain many types!   list(thing="hat", size=2.5)
+  read using $,  mylist$thing or mylist$size   <<<< ONLY NAMES
+  read using index, mylist[1] or mylist[2]       <<<< can use vector for lookup 
+  read using index, mylist[[1]] or mylist[[2]]   <<<< SINGLE ELEMENT ONLY
+  read using names, mylist["hat"] or mylist["size"]     <<<< can use vector for lookup
+  read using names, mylist[["hat"]] or mylist[["size"]]  <<<< SINGLE ELEMENT ONLY
+  read using vector of booleans mylist[bool_vec]
+  can call function on every element using lapply()  [returns list]
+  can call function on every element using sapply()  [returns vector]
+  ?? complicated version called mapply()  
+  get names of elements with names(df)  
+  
+Data Frame:
+  List of Vectors, all of the same length
+  create with data.frame(team, wins, losses)
+  Access columns using list operands.
+  boolean vector by df$wins== 0
+  subset of vector by df$team[df$wins== 0]   ---- only works if selecting team colum at same time!
+  add columns by merging data frames with cbind() 
+  extend columns by merging data frames with rbind() 
+  combine data frames with common key column by using merge()
+  can call function on every column using lapply()  [returns list]
+  can call function on every column using sapply()  [returns vector]
+  ?? complicated version called mapply()  
+  select subset of rows and columns using subset()
+  to get random sample use sample()
+  to get summary statistics for subsets (e.g., home runs by team on data frame with player data) use tapply()
+  get names of columns with names(df)   
+
+Functions
+  operators like '+' are converted into function calls
+  take lists of arguments 
+  Uses "pass by promise" which seems like "pass by copy-on-write"
+  Can call function "mean" with arbitrary list by: do.call(mean, list(1:10, na.rm = TRUE))
+  name <- function(args) code
+  curly braces are used to treat multiple statements of code like a single line.
+  can use "return()" but the last value is returned too  
+  sapply(vec, fun) calls the function on every element of the vector
+
+Assignment
+  <-  OR ->
+  =
+
+Comparison
+  ==
+    
+Branch
+  if ( condition ) this
+  if ( condition ) this else that
+
+Loop
+  repeat     (loop forever, or until break)
+  while (condition) code
+  for (var in list) code
+  next     (instead of "continue")

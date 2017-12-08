@@ -234,16 +234,16 @@ latex/paper/images/Liao2016Figure4_SEK_govt.eps: python_2.7/plot_graph.py data/G
 #
 # X-Y plots for swap data
 #
-latex/paper/images/Liao2016Figure5_xcbs_alldata.eps: python_2.7/plot_XY.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_XY.py false data/Liao/regression_results_withCIP.csv $@
 latex/paper/images/Liao2016Figure5_xcbs_bounded.eps: python_2.7/plot_XY.py data/Liao/regression_results_withCIP.csv
-	python_2.7/plot_XY.py true data/Liao/regression_results_withCIP.csv $@
+	python_2.7/plot_XY.py true data/Liao/regression_results_withCIP.csv -0.00005732 .868266 $@
+latex/paper/images/Liao2016Figure5_xcbs_alldata.eps: python_2.7/plot_XY.py data/Liao/regression_results_withCIP.csv
+	python_2.7/plot_XY.py false data/Liao/regression_results_withCIP.csv 0.0002045539 0.8029425473 $@
 
 #
 # X-Y plots for govt data
 #
 latex/paper/images/Liao2016Figure5_govt_alldata.eps: python_2.7/plot_XY.py data/Govt/regression_results_withCIP.csv
-	python_2.7/plot_XY.py false data/Govt/regression_results_withCIP.csv $@
+	python_2.7/plot_XY.py false data/Govt/regression_results_withCIP.csv 0.0003799726 1.0123218515 $@
 
 #
 # Plot of CIP Corp all in one plot
@@ -415,8 +415,14 @@ spell: latex/paper/content.tex
 	aspell -t -c latex/paper/content.tex
 
 ftest: R/ftest.R data/Liao/regression_results_withCIP.csv data/Govt/regression_results_withCIP.csv
-	Rscript R/ftest.R data/Liao/regression_results_withCIP.csv CIP_basis_XCBS_
-	Rscript R/ftest.R data/Govt/regression_results_withCIP.csv CIP_basis_
+	Rscript R/ftest.R data/Liao/regression_results_withCIP.csv CIP_basis_XCBS_ true
+	Rscript R/ftest.R data/Liao/regression_results_withCIP.csv CIP_basis_XCBS_ false
+	Rscript R/ftest.R data/Govt/regression_results_withCIP.csv CIP_basis_XCBS_ false
+
+spearman: python_2.7/spearman.py data/Liao/regression_results_withCIP.csv data/Govt/regression_results_withCIP.csv
+	python_2.7/spearman.py data/Liao/regression_results_withCIP.csv true
+	python_2.7/spearman.py data/Liao/regression_results_withCIP.csv false
+	python_2.7/spearman.py data/Govt/regression_results_withCIP.csv false
 
 test:
 	python_2.7/duration_weight_lib.py

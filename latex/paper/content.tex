@@ -682,21 +682,43 @@ Liao computed correlations and plotted graphs of RCSD and CIP basis for each cur
 \hline
 Currency & Correlation & Liao's Correlation \\
 \hline
-EUR & .85 & .77 \\
-JPY & .57 & .72 \\
-CHF & .67 & .71 \\
-GBP & .18 & .74 \\
-AUD & .47 & .28 \\
-CAD & .19 & .57 \\
-SEK & .53 & N/A \\
-NOK & .77 & N/A \\
-NZD & .53 & N/A \\
-all currencies & .68 & .81 \\  % Liao value from the bottom of page 2.
+EUR & .84 & .77 \\
+JPY & .64 & .72 \\
+CHF & .62 & .71 \\
+GBP & .38 & .74 \\
+AUD & .35 & .28 \\
+CAD & .27 & .57 \\
+all currencies & .71 & .81 \\  % Liao value from the bottom of page 2.
 \hline
 \end{tabular}
 
 \raggedright 
- Note: {\small Correlation of residualized credit spread difference with CIP basis using swap rates with a 5-year horizon.  The row ``all currencies'' reflects a pooled sample containing the 9 currencies in my data and 6 currencies in Liao's.  (Liao did not study SEK, NOK, nor NZD.)}
+ Note: {\small Correlation of RCSD with CIP basis using swap rates with a 5-year horizon.  Correlations were calculated over the time period January 2004 to July 2016, to match Liao's time period.  The row ``all currencies'' reflects a pooled sample containing these 6 currencies. (Liao did not study SEK, NOK, nor NZD.)}
+\end{table}
+
+
+\begin{table}[h]
+\caption{\label{liao_correl_table2} Correlation of RCSD with CIP basis using swaps}
+\centering
+\begin{tabular}{ |l|r|r| }
+\hline
+Currency & Correlation \\
+\hline
+EUR & .85 \\
+JPY & .60  \\
+CHF & .64 \\
+GBP & .38 \\
+AUD & .45 \\
+CAD & .30 \\
+SEK & .63 \\
+NOK & .79 \\
+NZD & .60 \\
+all currencies & .71 \\
+\hline
+\end{tabular}
+
+\raggedright 
+ Note: {\small Correlation of RCSD with CIP basis using swap rates with a 5-year horizon.  Correlations were calculated over the entire time period, January 1998 to March 2017.   The row ``all currencies'' reflects a pooled sample containing the 9 currencies.}
 \end{table}
  
 Figures~\ref{Liao_EUR} to~\ref{Liao_NZD} show the residualized credit spread differential and CIP basis using swap rates for each currency.  Where Liao studied the currency, the figure contains two panels, with Panel A contains my results and Panel B contains Liao's results.  Panel B has been shifted horizontally to align the dates in the plots for easier comparison.  Liao did not study SEK, NOK, and NZD, and for those currencies, there is no Panel B.  The CIP basis has a 5-year horizon, to match what Liao chose.  The error bars in all plots are the 95\% confidence interval computed using robust standard errors clustered at the firm level.
@@ -953,28 +975,28 @@ NZD & Y & Y &   & Y &   & Y &   \\
 The goal of replacing swap rates with government rates was to obtain greater accuracy, not to improve the correlation.  But the correlations of the pooled sample did improve from 68\% to 82\%.   Table~\ref{govt_correl_table} has separate correlations for each currency.  
 
 
-\begin{table}[H]
+\begin{table}[h]
 \caption{\label{govt_correl_table} Correlation of RCSD with CIP basis using govt. rates}
 \centering
 \begin{tabular}{ |l|r|r|r| }
 \hline
-Currency & Govt. Correlation & Swap Correlation & Liao's Correlation \\
+Currency & Govt. Correlation & Swap Correlation \\
 \hline
-EUR & .85 & .85 & .77 \\
-JPY & .44 & .57 & .72 \\
-CHF & .45 & .67 & .71 \\
-GBP & .56 & .18 & .74 \\
-AUD & .91 & .47 & .28 \\
-CAD & .90 & .19 & .57 \\
-SEK & .82 & .53 & N/A \\
-NOK & .87 & .77 & N/A \\
-NZD & .79 & .53 & N/A \\
-all currencies & .82 & .68 & .81 \\  % Liao value from the bottom of page 2.
+EUR & .88 & .85 \\
+JPY & .54 & .60 \\
+CHF & .60 & .64 \\
+GBP & .68 & .38 \\
+AUD & .92 & .45 \\
+CAD & .92 & .30 \\
+SEK & .85 & .63 \\
+NOK & .86 & .79 \\
+NZD & .86 & .60 \\
+all currencies & .85 & .71 \\ 
 \hline
 \end{tabular}
 
 \raggedright 
- Note: {\small Correlation of RCSD with CIP basis using government bond rates with a 5-year horizon.  The row ``all currencies'' reflects a pooled sample containing the 9 currencies in my data and 6 currencies in Liao's.  (Liao did not study SEK, NOK, nor NZD.)}
+ Note: {\small Correlation of RCSD with CIP basis using government bond rates with a 5-year horizon.  The correlations were from January 1998 to March 2017.  The row ``all currencies'' reflects a pooled sample containing the data from all 9 currencies.  }
 \end{table}
 
 
