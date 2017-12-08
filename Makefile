@@ -73,8 +73,11 @@ data/Liao/prices_processed/2017-3-8: python_2.7/process_prices_Liao.py data/Liao
 data/Liao/regression_results.csv: R/regress_Liao_parallel.R data/Liao/prices_processed/2017-3-8
 	Rscript R/regress_Liao_parallel.R data/Liao/prices_processed/ $@
 
-data/Liao/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS.py data/Liao/regression_results.csv
-	python_2.7/add_CIP_XCBS.py raw_data/currency_prices/ data/Liao/regression_results.csv $@
+data/Liao/regression_results_masked.csv: python_2.7/mask_small_samples.py data/Liao/regression_results.csv
+	python_2.7/mask_small_samples.py data/Liao/prices_processed 2 data/Liao/regression_results.csv $@
+
+data/Liao/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS.py data/Liao/regression_results_masked.csv
+	python_2.7/add_CIP_XCBS.py raw_data/currency_prices/ data/Liao/regression_results_masked.csv $@
 
 #
 # Govt data
@@ -97,8 +100,11 @@ data/Govt/prices_processed/2017-3-8: python_2.7/process_prices_Govt.py data/Govt
 data/Govt/regression_results.csv: R/regress_Liao_parallel.R data/Govt/prices_processed/2017-3-8
 	Rscript R/regress_Liao_parallel.R data/Govt/prices_processed/ $@
 
-data/Govt/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data/Govt/govt20.csv data/Govt/regression_results.csv
-	python_2.7/add_CIP_XCBS_Govt.py raw_data/currency_prices/ data/Govt/ 5 data/Govt/regression_results.csv $@
+data/Govt/regression_results_masked.csv: python_2.7/mask_small_samples.py data/Govt/regression_results.csv
+	python_2.7/mask_small_samples.py data/Govt/prices_processed 2 data/Govt/regression_results.csv $@
+
+data/Govt/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data/Govt/govt20.csv data/Govt/regression_results_masked.csv
+	python_2.7/add_CIP_XCBS_Govt.py raw_data/currency_prices/ data/Govt/ 5 data/Govt/regression_results_masked.csv $@
 
 
 #
@@ -113,8 +119,11 @@ data/Corp5Y/prices_processed/2017-3-8: python_2.7/process_prices_Corp5Y.py data/
 data/Corp5Y/regression_results.csv: R/regress_Corp_parallel.R data/Corp5Y/prices_processed/2017-3-8
 	Rscript R/regress_Corp_parallel.R data/Corp5Y/prices_processed/ $@
 
-data/Corp5Y/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data/Corp5Y/regression_results.csv
-	python_2.7/add_CIP_XCBS_Govt.py raw_data/currency_prices/ data/Govt/ 5 data/Corp5Y/regression_results.csv $@
+data/Corp5Y/regression_results_masked.csv: python_2.7/mask_small_samples.py data/Corp5Y/regression_results.csv
+	python_2.7/mask_small_samples.py data/Corp5Y/prices_processed 2 data/Corp5Y/regression_results.csv $@
+
+data/Corp5Y/regression_results_withCIP.csv: python_2.7/add_CIP_XCBS_Govt.py data/Corp5Y/regression_results_masked.csv
+	python_2.7/add_CIP_XCBS_Govt.py raw_data/currency_prices/ data/Govt/ 5 data/Corp5Y/regression_results_masked.csv $@
 
 
 
