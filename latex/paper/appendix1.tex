@@ -1,12 +1,12 @@
-\chapter{Liao's Model}  \label{model}
+\section{Liao's Model}  \label{model}
 
 % Otherwise numbering starts at 1.
-\renewcommand{\theequation}{A\thechapter.\arabic{equation}}
+\renewcommand{\theequation}{A\thesection.\arabic{equation}}
 
 Liao's model is based around a firm issuing debt in either a domestic or foreign market.  A company wishing to raise 1B USD can raise it domestically by just issuing a bond.  Raising the money overseas is more complicated.  The firm must issue 900 EUR worth of bonds, then exchange the proceeds for 1B USD, and also hedge its EUR/USD exposure by buying an FX forward.
 
 
-\section{Model Overview}
+\subsection{Model Overview}
 
 The model has four markets: a USD (domestic) debt market, a EUR (foreign) debt market, an FX spot market and an FX forward market.  The model has 4 actors: the representative firm issuing debt, an investor who buys exclusively USD debt, a similar investor in EUR debt, and an FX arbitrageur.  The investors have downward sloping demand curves.  The FX arbitrageur has a downward sloping demand curve for FX positions.
 
@@ -14,7 +14,7 @@ The actions of the representative firm connects the prices in all the markets.  
 
 Liao allows for two kinds of exogenous shocks.  ``Credit demand shocks'' affect the demand by one investor, irrespective of the other investor.  An example might be a central bank purchasing debt in their local market.  The other kind of shock is a ``CIP shock'', where the FX forward market moves irrespective of the FX spot market.  An example is a new regulation that requires insurance companies to hedge their FX exposure.
 
-\section{Model Equations}
+\subsection{Model Equations}
 
 I'll now cover the equations governing the actors in the model.
 % Intro paragraph?
@@ -100,7 +100,7 @@ These CIP basis and credit spread then govern the behavior of the representative
 \end{equation}
 
 
-\section{Liao's Predictions}
+\subsection{Liao's Predictions}
 
 Liao made four predictions.  First, \label{first_prediction} if there is a pricing violation in one market (FX or credit), it can spill into the other market.  In the model we see that $\epsilon_c \uparrow$ results in $c \downarrow$ and $ \mu \uparrow$ and then $b \downarrow$.  Similarly, if $\epsilon_b \uparrow$, then $b \downarrow$ and $ \mu \downarrow$ resulting in $c \downarrow$.  Thus, for either kind of shock, $b$ and $c$ move in the same direction.  So, the first prediction is that $b$ and $c$ respond in the same direction.
 

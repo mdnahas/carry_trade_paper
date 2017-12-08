@@ -1,7 +1,7 @@
 % prevent footnotes from running onto multiple pages.
 \interfootnotelinepenalty=10000
 
-\chapter{Introduction}
+\section{Introduction}
 
 \todo{DELETE ALL TODOs}
 
@@ -112,11 +112,11 @@ In this thesis, I reproduce Liao's work with swap rates and then reevaluate it u
 % The final finding is that CIP does not have to hold under uncertainty.  I demonstrate this with a simple two-period model where the two interest rates (e.g., USD and EUR) in the second period are not determined at the start.  For CIP to hold, an equation containing the second period's interest rates would have to be separable, which is not the case in general.  Nor does it seem likely when the interest rates are normally distributed.  I suggest that models based on options pricing, such as \cite{Black1995}, should be considered for CIP research in the future.
 
 
-\section{Literature Review}
+\subsection{Literature Review}
 
 \todo{Make sure this all uses the past tense}
 
-There is a long history associated with covered interest parity.  Discussion of CIP even predates the creation of the first currency futures in 1970.\cite{Kolb2010}  This section will focus on work done after the crisis and concentrate on those that study long-term bonds.  
+There is a long history associated with covered interest parity.  Discussion of CIP even predates the creation of the first currency futures in 1970.\cite{Kolb2010}  This subsection will focus on work done after the crisis and concentrate on those that study long-term bonds.  
 
 % % futures in 1970 at International Commercial Exchange in New York.  No need - Brenton Woods.  CME in 1972 
 
@@ -189,7 +189,7 @@ If banks did not match the horizon of the funding source to the investment, ther
 
 Liao\cite{Liao2016} is a departure from most of the field by focusing on corporate bonds, rather than bank borrowing or government bonds.  He claimed that the price of risk should be the same in all markets and deviations from this are correlated with CIP deviations.  Using a data set of 35,000 bonds with prices from 2004 to 2016, he estimated the price of risk by the spread of corporate bonds over swap rates.  He found that deviations in that value are correlated with CIP deviations, when calculated with the swap rate.  Liao went further and showed that the CIP relationship could be maintained by firms issuing bonds in foreign markets and hedging the liability in FX forward markets.
 
-Liao's work is important to this thesis and will be described further in Chapter~\ref{Liao_chapter}.  Liao, Sushko et al., Borio et al., Du et al., and others used swap rates to study CIP with horizons longer than 3 months.  This will be addressed further in Section~\ref{govt_section}.
+Liao's work is important to this thesis and will be described further in Section~\ref{Liao_chapter}.  Liao, Sushko et al., Borio et al., Du et al., and others used swap rates to study CIP with horizons longer than 3 months.  This will be addressed further in Section~\ref{govt_chapter}.
 
 
 %Liao's paper\cite{Liao2016} is interesting because it proposed a CIP-like mechanisms in corporate bonds.  Corporate bonds from the same company issued in different currencies, should trade with the same currency-adjusted yield.  This would be enforced not by arbitrage (because the bonds' risks are not identical), but by the Law of One Price (LOOP).  That is, customers would buy the cheap one, driving up the price until the prices are equal.  Or, more likely, firms would see where prices were higher and issue bonds there.  I will call this condition ``CIP-LOOP''.
@@ -212,13 +212,13 @@ Liao's work is important to this thesis and will be described further in Chapter
 % %Sushko2016 --- page 8, footnote 12 "cross-currency basis"
 
 
-\section{Outline of Thesis}
+\subsection{Outline of Paper}
 
-The thesis proceeds as follows.  Chapter~\ref{data_chapter} describes the data and code used to produce the results.  Chapter~\ref{CIP_chapter} formally defines CIP and CIP basis, and describes some of the securities used in the analysis.  Chapter~\ref{Liao_chapter} describes work using corporate bonds by Liao and reproduction of those results.  Chapter~\ref{extensions_chapter} has new work: reevaluating Liao's work using government bonds rates and measuring CIP basis directly using corporate bonds.  Chapter~\ref{conclusion_chapter} concludes.  
+The thesis proceeds as follows.  Section~\ref{data_chapter} describes the data and code used to produce the results.  Section~\ref{CIP_chapter} formally defines CIP and CIP basis, and describes some of the securities used in the analysis.  Section~\ref{Liao_chapter} describes work using corporate bonds by Liao and reproduction of those results.  Section~\ref{govt_chapter} reevaluates Liao's work using government bonds rates.  Section~\ref{corp_cip_chapter} measures CIP basis directly using corporate bonds.  Section~\ref{conclusion_chapter} concludes.  
 
-\chapter{Data Sources and Code} \label{data_chapter}
+\section{Data Sources and Code} \label{data_chapter}
 
-This chapter describes the data and code used in the analyses.  It covers the sources, the transformations, which data was included, and which data was excluded.  
+This section describes the data and code used in the analyses.  It covers the sources, the transformations, which data was included, and which data was excluded.  
 
 % LIBOR stuff here?
 % The banks' names were gathered from the websites for each floating rate.\cite{LIBOR_panel,EURIBOR_panel,CDOR_panel,NIBOR_panel,BBSW_panel,BKBM_panel,STIBOR_panel}  
@@ -296,7 +296,7 @@ After these restrictions and the restrictions imposed by the analyses, the numbe
 \centering
 \begin{tabular}{ |l|l|l|r|r| }
 \hline
-Year & Price Samples Total & Used in Chap.~\ref{Liao_chapter} & in Sec.~\ref{govt_section} & in Sec.~\ref{corp_cip_section} \\
+Year & Price Samples Total & Used in Sec.~\ref{Liao_chapter} & in Sec.~\ref{govt_chapter} & in Sec.~\ref{corp_cip_chapter} \\
 \hline
 1998 &  15453 &   8660 &  9007 &  4598 \\
 1999 &  19751 &  13244 & 12656 &  4844 \\
@@ -322,7 +322,7 @@ Year & Price Samples Total & Used in Chap.~\ref{Liao_chapter} & in Sec.~\ref{gov
 \end{tabular}
 
 \raggedright 
- Note: {\small The number of price samples for corporate bonds, broken down by year and usage.  Many were not used because the firm did not have bonds priced in two different currencies on the sampled day.  The analysis in Chapter~\ref{Liao_chapter} required its bonds rates to have a swap rate available with horizons similar to the bond's maturity.  The analysis in Section~\ref{govt_section} required its bond rates to have a government rate available with maturity similar to the bond's maturity.  The analysis in Section~\ref{corp_cip_section} required bonds with remaining maturity between 3 and 7 years.  Notice that this last restriction left very few price samples in 2003 and surrounding years, which caused large errors and some missing results.  }
+ Note: {\small The number of price samples for corporate bonds, broken down by year and usage.  Many were not used because the firm did not have bonds priced in two different currencies on the sampled day.  The analysis in Section~\ref{Liao_chapter} required its bonds rates to have a swap rate available with horizons similar to the bond's maturity.  The analysis in Section~\ref{govt_chapter} required its bond rates to have a government rate available with maturity similar to the bond's maturity.  The analysis in Section~\ref{corp_cip_chapter} required bonds with remaining maturity between 3 and 7 years.  Notice that this last restriction left very few price samples in 2003 and surrounding years, which caused large errors and some missing results.  }
 \newline Source: Bloomberg L.P.
 \end{table}
 
@@ -345,7 +345,7 @@ The code used for this project is available upon request.  The data is available
 
 
 
-\chapter{Covered Interest Parity } \label{CIP_chapter}
+\section{Covered Interest Parity } \label{CIP_chapter}
 
 %Liao:
 % CIP definition  F_T = S\frac{(1+r_D)^T}{(1+r_E)^T}
@@ -380,9 +380,9 @@ The code used for this project is available upon request.  The data is available
 % 
 
 
-This chapter defines covered interest parity, how deviations from it are measured, and how banks respond to deviations.  Also covered is why researchers sometimes use interest rates swaps to measure CIP deviation.  
+This section defines covered interest parity, how deviations from it are measured, and how banks respond to deviations.  Also covered is why researchers sometimes use interest rates swaps to measure CIP deviation.  
 
-\section{Covered Interest Parity}
+\subsection{Covered Interest Parity}
 
 Covered interest parity is the condition that investing in a bond domestically and investing in a bond through any foreign currency should yield the same rate of return.  For this section, I consider EUR to be the domestic currency and USD to be the reference foreign currency.  Covered interest parity is:
 \begin{equation} 
@@ -400,7 +400,7 @@ CIP has a ``horizon'' over which it is measured, such as 5 years.  The USD and E
 If both bonds have identical risks, and the forward is risk-free\footnote{This can be approached by either purchasing it on a futures exchange where every member of the exchange insures every contract, or requiring the remaining value of the contract to be kept in escrow, to avoid counterparty default.}, then investing locally or overseas is equivalent and should produce the same payout.  CIP is then a no-arbitrage condition. 
 
 
-\section{CIP Basis}
+\subsection{CIP Basis}
 
 % \todo{include the identity $b_{c,c'} = b_{c,c''} - b_{c',c''}$ ?}
 
@@ -493,9 +493,9 @@ late 2011 to late 2012 - peak interest rates for Greece, Portugal, and Cyprus du
 
 
 
-\section{Practical Aspects of Arbitrage}
+\subsection{Practical Aspects of Arbitrage}
 
-The values we can expect for CIP basis are, in part, determined by banks' trading behavior.  If the max CIP basis spread gets far enough from 0, banks and other financial institutions will trade the bonds and currencies.  This section discusses the banks' behavior and its resulting effect on values for CIP basis.  
+The values we can expect for CIP basis are, in part, determined by banks' trading behavior.  If the max CIP basis spread gets far enough from 0, banks and other financial institutions will trade the bonds and currencies.  This subsection discusses the banks' behavior and its resulting effect on values for CIP basis.  
 
 If $b_{EUR}$ was positive, a bank could profit by buying USD government bonds and shorting EUR government bonds.\footnote{In practice, it may be difficult to short government bonds, but a similar effect can be gotten by shorting bond futures, shorting bond ETFs, or purchasing put options on bonds.}  Using REPO\footnote{REPO is a repurchase agreement.  The bond holder sells the bond today and agrees to buy it back again tomorrow.  In effect, it is a loan where the bond holder uses the bond as collateral, gets cash today, and gets the collateral back tomorrow.  The bond holder does not get cash equal to the full value of the bond; they get the cash value minus a fraction known as the ``haircut''.  The haircut provides a margin to the lender in case of default and an incentive for the borrower to repurchase the collateral tomorrow, since the collateral is more valuable than the cash.}, the bank could use the USD bonds as collateral to borrow more dollars and go long more USD government bonds and short more EUR government bonds.  Thus, the bank can lever up the trade.  The bank's profit is limited by the transaction costs, REPO haircut and by the bank's internal balance sheet limits.  
 
@@ -539,7 +539,7 @@ Even if major banks are not performing arbitrage, the question still remains: Wh
 % Using government bonds, the transaction fees are generally low because the bonds are risk-free, the currency trades are in opposite directions, and the markets are large and liquid.  Over 500B USD is traded in U.S. government bonds daily.  The currency forward market is the smallest at 0.7B USD (equivalent) daily.  The size of these markets is just one of the reasons CIP is considered an important relationship in international finance.
 
 
-\section{Risky Investments}
+\subsection{Risky Investments}
 
 CIP can only be applied to foreign and domestic bonds that have identical risks.  This applies to government bonds, if we assume they are risk-free.  It also applies to an individual firm's bonds that are issued in multiple currencies, if they have the same properties (maturity, etc.)\ and we assume default is handled identically in every country.  However, many studies in the literature use securities that do not have identical risks.  
 
@@ -577,7 +577,7 @@ Some researchers measure the CIP basis for swap rates by using a related product
 
 \todo{mention FX forward's role in directionality of bet?}
 
-Figure~\ref{CIP_basis_swap5} is a plot of CIP basis using swap rates with a 5-year horizon.  Swap rates may have been used for CIP research, but there a number of issues which may prevent them being a good replacement for OIS and LIBOR 3M.  This will be addressed in Section~\ref{govt_section}.
+Figure~\ref{CIP_basis_swap5} is a plot of CIP basis using swap rates with a 5-year horizon.  Swap rates may have been used for CIP research, but there a number of issues which may prevent them being a good replacement for OIS and LIBOR 3M.  This will be addressed in Section~\ref{govt_chapter}.
 
 
 \todo{had bad line break in the paragraph above}
@@ -592,15 +592,15 @@ Figure~\ref{CIP_basis_swap5} is a plot of CIP basis using swap rates with a 5-ye
  
 
 
-\chapter{CIP and Corporate Bonds} \label{Liao_chapter}
+\section{CIP and Corporate Bonds} \label{Liao_chapter}
 
 Covered interest parity has mostly been studied in relation to government bond rates and various bank borrowing rates, such as LIBOR 3M and the swap rate.  Corporate bonds, in the U.S., are a market almost as big as Treasury bonds (9.7T USD vs. 11.8T USD).  Liao\cite{Liao2016} took a first step into this area by proposing that CIP holds for corporate bonds, when adjusted for maturity and other properties.  In Liao's model, CIP is not enforced by banks performing arbitrage, but by firms choosing to issue bonds in the market with the lowest interest rates.
 
 Liao verified his model by showing a strong correlation between CIP basis using swap rates and the ``residualized credit spread differential''.  This section defines that term, explains its relationship with CIP basis, and explains how I calculated it (and how my calculation differed from Liao's).
 
-\section{Credit Spread Differential}
+\subsection{Credit Spread Differential}
 
-This section defines the terms ``credit spread'' and ``credit spread differential'' for a single firm, so that Section~\ref{rcsd_section} can define ``residualized credit spread differential'' for a set of firms.  
+This subsection defines the terms ``credit spread'' and ``credit spread differential'' for a single firm, so that Section~\ref{rcsd_section} can define ``residualized credit spread differential'' for a set of firms.  
 
 A credit spread measures the price of risk using the difference between two rates.  Liao uses the term ``credit spread'' to refer to the difference between corporate bond rates and the swap rate, which he uses as a reference rate:
 \begin{equation}
@@ -616,16 +616,16 @@ c_{f,EUR} = (r_{f,EUR} - r_{swap,EUR}) - (r_{f,USD} - r_{swap,USD})
 
 \noindent where $c_{f,EUR}$ is the credit spread differential for a firm $f$ for EUR in reference to USD.  The credit spread differential $c_{f,EUR}$ measures the difference in the price of risk between the two currencies.  If the value is positive, high-risk bonds will be cheaper (higher yield) in the local market and more expensive (lower yield) overseas.   Thus, risk-taking investors will purchase in local markets and risk-providing corporations will issue bonds outside them.  If the credit spread differential is negative, risk-taking investors will buy overseas and risk-providing corporations will issue natively.
 
-In this thesis, the credit spread differential will always use USD as the reference currency.  In this chapter, the CIP basis will be the 5-year CIP basis using the swap rate as the reference rate. 
+In this thesis, the credit spread differential will always use USD as the reference currency.  In this section, the CIP basis will be the 5-year CIP basis using the swap rate as the reference rate. 
 
-The credit spread differential is for a single firm, $f$.  When investigating an aggregate measure, Liao found that simple averaging was insufficient.  He produced the ``residualized credit spread differential'', which will be defined later in this chapter.
+The credit spread differential is for a single firm, $f$.  When investigating an aggregate measure, Liao found that simple averaging was insufficient.  He produced the ``residualized credit spread differential'', which will be defined later in this section.
 
 
-\section{The Model}
+\subsection{The Model}
 
 Liao's model is described in Appendix~\ref{model}.  It was used without any modifications.
 
-This chapter verifies the third prediction of the model.  (See Section~\ref{first_prediction} in Appendix~\ref{model}.)  In the model, the representative firm always issues bonds in the cheapest market.  As the representative firm issues more bonds, the prices of domestic and foreign corporate bonds move towards the same price (adjusted for FX).  When the CIP basis is 0 for those corporate bonds, the credit spread differential and the CIP basis using swaps move equally in the same direction.  Expressed as an equation:
+This section verifies the third prediction of the model.  (See Section~\ref{first_prediction} in Appendix~\ref{model}.)  In the model, the representative firm always issues bonds in the cheapest market.  As the representative firm issues more bonds, the prices of domestic and foreign corporate bonds move towards the same price (adjusted for FX).  When the CIP basis is 0 for those corporate bonds, the credit spread differential and the CIP basis using swaps move equally in the same direction.  Expressed as an equation:
 \begin{equation}
   \label{third_prediction}
   lim_{D \to \infty} c-b = 0
@@ -635,7 +635,7 @@ This chapter verifies the third prediction of the model.  (See Section~\ref{firs
 
 \todo{measure more than correlation.  test for slope = 1?}
 
-\section{Liao's Analysis} \label{rcsd_section}
+\subsection{Liao's Analysis} \label{rcsd_section}
 
 Liao generated a single credit spread differential using the data from many firms.  He did it by using a regression to predict the credit spread for each bond from each firm, and then using the fixed-effect estimate for currency as the credit spread in the credit spread differential formula.  He called this the ``residualized credit spread differential''. 
 
@@ -654,18 +654,18 @@ Liao calls $\hat{\alpha}_{ct}$ the ``residualized credit spread'' and estimates 
 %Liao's results are included below, next to mine.
 
 
-\section{Reproduction of Liao's Results}
+\subsection{Reproduction of Liao's Results}
 
 % actual numbers 17671 bonds from 806 firms
 
-My reproduction of Liao's work differs mostly in the data used.  I did not have Liao's resources and have a smaller data set: 17,000 bonds as compared to 35,000.  (See Chapter~\ref{data_chapter} for details.)
+My reproduction of Liao's work differs mostly in the data used.  I did not have Liao's resources and have a smaller data set: 17,000 bonds as compared to 35,000.  (See Section~\ref{data_chapter} for details.)
 
 The same regression was used, with a few adjustments to the data buckets.  
 \begin{equation}
   S_{it} = \alpha_{ct} + \beta_{ft} + \gamma_{mt} + \delta_{rt} + \epsilon_{it} 
 \end{equation}
 
-\noindent $\gamma_{mt}$ was the fixed effect for 4 maturity buckets (1 to 3 years, 3 to 7 years, 7 to 10 years, 10 to 20 years).  The largest was capped at 20 years, since that was the longest-termed swap rate in my data set.  $\delta_{rt}$ was the fixed effect for two ratings buckets, but, to ensure equal-sized buckets, the ``high'' bucket contains bonds with a combined credit rating\footnote{Combined credit ratings are defined in Chapter~\ref{data_chapter}.} of at least an Aa3 from Moody's or an AA- from S\&P.
+\noindent $\gamma_{mt}$ was the fixed effect for 4 maturity buckets (1 to 3 years, 3 to 7 years, 7 to 10 years, 10 to 20 years).  The largest was capped at 20 years, since that was the longest-termed swap rate in my data set.  $\delta_{rt}$ was the fixed effect for two ratings buckets, but, to ensure equal-sized buckets, the ``high'' bucket contains bonds with a combined credit rating\footnote{Combined credit ratings are defined in Section~\ref{data_chapter}.} of at least an Aa3 from Moody's or an AA- from S\&P.
 
 \todo{Describe average credit ratings}
 
@@ -837,17 +837,13 @@ Note: {\small  The RCSD is plotted in blue (dotted) with the 95\% confidence int
 
 
 
-\chapter{Extensions} \label{extensions_chapter}
+\section{Alternative Interest Rate} \label{govt_chapter}
 
-Two new studies were done using corporate bonds.  First, I reperformed Liao's analysis, except using government bond rates as the reference interest rate instead of swap rates.   Second, I estimated CIP basis using corporate bond rates and compared the result to that gotten using government and swap rates.
+Liao's study, as well as others in the field, uses the swap rate instead of a government bond rate to compute the CIP basis.  This section presents reasons why this may not be good practice and then reproduces the results of Section~\ref{Liao_chapter} using government bond rates as the reference rate.
 
-\section{Alternative Interest Rate} \label{govt_section}
+\subsection{Reasons Not To Use the Swap Rate} \label{not_swap_section}
 
-Liao's study, as well as others in the field, uses the swap rate instead of a government bond rate to compute the CIP basis.  This section presents reasons why this may not be good practice and then reproduces the results of Chapter~\ref{Liao_chapter} using government bond rates as the reference rate.
-
-\subsection{Reasons Not To Use the Swap Rate} \label{not_swap_subsection}
-
-% The swap rate is not an interest rate.  That is, there exist bonds with the same risk and duration with lower prices or, equivalently, higher yields.  In this chapter, I'll define the swap rate, explain why it is not an interest rate, and provide some small evidence that it is not acting like an interest rate in practice.
+% The swap rate is not an interest rate.  That is, there exist bonds with the same risk and duration with lower prices or, equivalently, higher yields.  In this section, I'll define the swap rate, explain why it is not an interest rate, and provide some small evidence that it is not acting like an interest rate in practice.
 
 Swap rates are convenient to gather and use in calculations of CIP basis, but there are a number of reasons why swap rates may not be appropriate.  Two reasons are presented in this subsection.  The first applies to all bank borrowing rates (i.e., including LIBOR and OIS), and not just the swap rate.  
 
@@ -922,11 +918,11 @@ Multiple papers in the CIP field use swap rates for their long-term rates.  Bori
 
 \subsection{Results Using Government Bond Rates}
 
-I reproduced Liao's work using government bond rates, instead of the swap rates.  In this section, I describe the changes to the analysis and the results.
+I reproduced Liao's work using government bond rates, instead of the swap rates.  In this subsection, I describe the changes to the analysis and the results.
 
 \todo{the first sentence of the next paragraph (especially ``exactly'') is strange.}
 
-The set of bond prices used is not exactly the same as in the previous chapter's study.  The regression requires the spread of the bond rate over the reference interest rate.  In the previous section, the reference rate was the swap rate and, in this section, it is the government rate.  When the reference rate for a particular date does not exist, the data sample was dropped.  Missing swap rates happened occasionally, with no particular pattern.  With government rates, it was more systematic.  (See Table~\ref{govt_maturities}.)  For example, AUD and NZD do not have 20 year bonds; their maximum is 10 years.  So, for those currencies, only data within 10 years of the measured date was used.
+The set of bond prices used is not exactly the same as in the previous section's study.  The regression requires the spread of the bond rate over the reference interest rate.  In the previous section, the reference rate was the swap rate and, in this section, it is the government rate.  When the reference rate for a particular date does not exist, the data sample was dropped.  Missing swap rates happened occasionally, with no particular pattern.  With government rates, it was more systematic.  (See Table~\ref{govt_maturities}.)  For example, AUD and NZD do not have 20 year bonds; their maximum is 10 years.  So, for those currencies, only data within 10 years of the measured date was used.
 
 \begin{table}[H]
 \caption{\label{govt_maturities} Maturities priced by central banks
@@ -1112,13 +1108,13 @@ Note: {\small Plots of CIP basis against residualized credit spread differential
 \end{figure}
 
 
-\section{Measuring Corporate CIP Basis} \label{corp_cip_section}
+\section{Measuring Corporate CIP Basis} \label{corp_cip_chapter}
 
 So far, this work has measured CIP basis using swap rates and government bond rates.  In this section, I present a different approach: using corporate bond prices.  First, the model used for the measurement is described and its assumptions are discussed.  Next, details are discussed which are necessary for applying the model to real data.  Then, the model is compared and contrasted with Liao's regressions and work by Du et al.  Lastly, the results are plotted and compared to CIP basis data gathered from swaps and government rates.  
 
 \subsection{Corporate Bonds for CIP}
 
-Measuring CIP basis requires bonds, issued in different currencies, with the exact same risk.  Government bonds can be used only if we assume that they are all risk-free.  This is a plausible assumption, but a questionable one since only 3 of the 10 governments (Germany, Switzerland, and Norway) were top-rated by all three major credit rating agencies (S\&P, Moody's, Fitch) for the period of this study, from Jan.\ 1998 to March 2017.\cite{TradingEconomics}  Swap rates, as detailed in Section~\ref{not_swap_subsection}, are not bonds and do not have the same risk.  However, corporate bonds issued by the same firm in multiple countries should have similar risks.
+Measuring CIP basis requires bonds, issued in different currencies, with the exact same risk.  Government bonds can be used only if we assume that they are all risk-free.  This is a plausible assumption, but a questionable one since only 3 of the 10 governments (Germany, Switzerland, and Norway) were top-rated by all three major credit rating agencies (S\&P, Moody's, Fitch) for the period of this study, from Jan.\ 1998 to March 2017.\cite{TradingEconomics}  Swap rates, as detailed in Section~\ref{not_swap_section}, are not bonds and do not have the same risk.  However, corporate bonds issued by the same firm in multiple countries should have similar risks.
 
 \todo{present ratings of government bonds}
 
@@ -1238,7 +1234,7 @@ This adjustment includes an additional source of error that comes from the gover
 
 \subsection{Multiple-bond Model}
 
-The model in equation~\ref{first_model} assumes that firms issue at most one bond per currency, but in reality, there may be many.  In this section, the single-bond model is modified.  The important change is that errors are allowed to be correlated for bonds that share the same currency and firm.  
+The model in equation~\ref{first_model} assumes that firms issue at most one bond per currency, but in reality, there may be many.  In this subsection, the single-bond model is modified.  The important change is that errors are allowed to be correlated for bonds that share the same currency and firm.  
 
 \todo{!!!!! Saroj asked ``what does the above sentence mean''}
 
@@ -1264,7 +1260,7 @@ The regression equation~\eqref{second_model} looks similar to Liao's equation~\e
 
 First, my regression is a measurement of a general property: CIP basis.  The result of the measurement has a number of applications.  Liao's regression result is one step in verifying a model.  He is estimating the credit spread differential and then using the correlation of that estimate with CIP basis (using swap rates) to verify his model.  
 
-Second, my regression is derived from the formula for CIP basis.  Liao's regression appears to originate from an industry practice, ``matrix pricing'', to approximate the credit spread.  His paper states, ``This method of attribution is analogous to the standard industry practice of matrix pricing in which a bond with unknown prices is assessed against other bonds with similar maturity and rating.''  The subsection where the regression is explained is entitled ``Matrix pricing of corporate credit'' and I could find nothing further about other origins of the regression formula.
+Second, my regression is derived from the formula for CIP basis.  Liao's regression appears to originate from an industry practice, ``matrix pricing'', to approximate the credit spread.  His paper states, ``This method of attribution is analogous to the standard industry practice of matrix pricing in which a bond with unknown prices is assessed against other bonds with similar maturity and rating.''  The section where the regression is explained is entitled ``Matrix pricing of corporate credit'' and I could find nothing further about other origins of the regression formula.
 
 Third, my regression has a specific time horizon.  If that horizon is 5 years, the delivery dates of forwards are in 5 years and the yields of bonds are adjusted to 5-year maturities.  Liao's regression operates on all maturities at once.  He uses maturity buckets, so a 4-year bond is treated exactly the same as a 6-year, because they are in the same bucket.  The maturity buckets are not indexed by currency, so the spread between short-term bonds of different currencies must be the same as the spread between long-term bonds of the same currencies.
 
@@ -1524,7 +1520,7 @@ Figures~\ref{CIP_basis_corp_EUR} through~\ref{CIP_basis_corp_NZD} plot the CIP b
 
 
 
-% \subsection{CIP Basis vs. Rate}
+% \subsubsection{CIP Basis vs. Rate}
 
 % Du reports that firms with higher interest rates have higher CIP basis.  Is that true for CIP basis from corporate bonds?
 
@@ -1551,7 +1547,7 @@ Figures~\ref{CIP_basis_corp_EUR} through~\ref{CIP_basis_corp_NZD} plot the CIP b
 
 
 
-\chapter{Conclusion} \label{conclusion_chapter}
+\section{Conclusion} \label{conclusion_chapter}
 
 This work explored covered interest parity on long-term horizons using rates from government bonds, swaps, and over 17,000 international corporate bonds.  The major result of Liao\cite{Liao2016} was reproduced and then extended to cover 6 more years and 3 more currencies.  Liao's result used swap rates as the reference rates.  These were argued to be poorly suited for CIP basis since they contain risk, being based on bank borrowing rates, and are variable contracts not bonds.  The major result of Liao was then reevaluated using government bond rates.  The correlation of RCSD with CIP basis improved when using government rates.
 

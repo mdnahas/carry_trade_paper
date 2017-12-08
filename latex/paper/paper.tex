@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+
+%
+% From thesis.tex 
+%
+\usepackage{amsmath,amsthm,amsfonts,amscd}  % Some packages to write mathematics.
+\usepackage{bbm}                   % math fone
+\usepackage{eucal} 	 	% Euler fonts
+\usepackage{graphicx}            % Newer package for eps figures
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage[hyphens]{url}		% Allows good typesetting of web URLs.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+
+%
+% From jfesample.tex
+%
+\usepackage{setspace,enumitem}
+\usepackage[longnamesfirst]{natbib}
+
+\usepackage[margin=1in]{geometry}%
+
+% Command to start a new page, starting on odd-numbered page if twoside option 
+% is selected above
+\newcommand{\clearRHS}{\clearpage\thispagestyle{empty}\cleardoublepage\thispagestyle{plain}}
+
+% Number paragraphs and subparagraphs and include them in TOC
+\setcounter{tocdepth}{2}
+
+\usepackage{indentfirst} % Indent first sentence of a new section.
+\usepackage{jfe}          % JFE-specific formatting of sections, etc.
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{proposition}{Proposition}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}
+\newtheorem{condition}{Condition}
+
+
+%
+% My commands
+%
+
+%\newcommand{\todo}[1]{\emph{TODO: #1}}
+\newcommand{\todo}[1]{}
+
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Var}{\mathrm{Var}}
+\DeclareMathOperator{\ind}{\mathbbm{1}}
+
+
+\begin{document}
+
+\setlist{noitemsep}  % Reduce space between list items (itemize, enumerate, etc.)
+
+\title{Covered Interest Parity and Long-Term Bonds\footnotetext{This paper is an extension of my Masters thesis, of the same name.}}
+
+\author{Michael Nahas \\ University of Texas at Austin}
+
+\date{Compiled \today}
+
+% Create title page with no page number
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\singlespacing
+
+\maketitle
+
+\vspace{-.2in}
+\begin{abstract}
+\noindent First, the major result of Liao (2016) was reproduced, with 3 additional currencies and 6 more years of data.  [Gordon Y. Liao. Credit Migration and Covered Interest Rate Parity. Working Paper 468601, Harvard University, October 2016.]   Second, Liao's model was tested using government rates, which showed a better fit than when using swap rates, as in Liao's work.  Lastly, CIP deviations were calculated from long-term corporate bond rates.  Since 2012, the CIP deviations measured using corporate bonds are lower than those calculated from swap and government rates, and are of a scale where banks could be expected to make arbitrage trades.  
+\end{abstract}
+
+\medskip
+
+\noindent \textit{JEL classification}: G0.
+
+\medskip
+\noindent \textit{Keywords}: Covered interest parity; corporate bonds.
+
+\thispagestyle{empty}
+
+\clearpage
+
+\onehalfspacing
+\setcounter{footnote}{0}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\setcounter{page}{1}
+
+\include{content}
+
+\clearpage
+
+
+\appendix
+
+\include{appendix1}
+
+\clearpage 
+
+\include{appendix2}
+
+
+\clearpage 
+
+% Bibliography.
+
+\bibliographystyle{jfe}
+\bibliography{../currency_bibliography,../dataset_bibliography}
+
+\end{document}
