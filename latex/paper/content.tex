@@ -187,7 +187,7 @@ Rime et al.\ also looked at the overnight horizon.  Here, both funding and inves
 
 If banks did not match the horizon of the funding source to the investment, there was a liquidity premium (or term spread).  Thus, using overnight REPO to fund the purchase of a 3-month government bill was possible, but when banks did that, they were reserving funds to address any liquidity crises that might happen.  Rime et al.\ found that, after considering the liquidity premium, funding costs, and investment decisions, the prices in short-term markets could be explained. 
 
-Liao\cite{Liao2016} is a departure from most of the field by focusing on corporate bonds, rather than bank borrowing or government bonds.  He claimed that the price of risk should be the same in all markets and deviations from this are correlated with CIP deviations.  Using a data set of 35,000 bonds with prices from 2004 to 2016, he estimated the price of risk by the spread of corporate bonds over swap rates.  He found that deviations in that value are correlated with CIP deviations, when calculated with the swap rate.  Liao went further and showed that the CIP relationship could be maintained by firms issuing bonds in foreign markets and hedging the liability in FX forward markets.
+Liao\cite{Liao2016} is a departure from most of the field by focusing on corporate bonds, rather than bank borrowing or government bonds.  He claimed that the price of risk should be the same in all markets and deviations from this are correlated with CIP deviations.  Using a data set of 35,000 bonds with prices from January 2004 to July 2016, he estimated the price of risk by the spread of corporate bonds over swap rates.  He found that deviations in that value are correlated with CIP deviations, when calculated with the swap rate.  Liao went further and showed that the CIP relationship could be maintained by firms issuing bonds in foreign markets and hedging the liability in FX forward markets.
 
 Liao's work is important to this thesis and will be described further in Section~\ref{Liao_chapter}.  Liao, Sushko et al., Borio et al., Du et al., and others used swap rates to study CIP with horizons longer than 3 months.  This will be addressed further in Section~\ref{govt_chapter}.
 
@@ -265,7 +265,7 @@ The bonds were all investment grade, at least Baa3 by Moody's or BBB- by Standar
 
 \todo{Discuss the ``more than one currency'' clause and uncomment the line above}
 
-In comparison, Liao's data set had 35,000 bonds from 4,600 firms.  He also used ``bullet'' bonds where the firm had issued in more than one currency, but his limits were less constrained.   He did not require investment-grade bonds and, for the amount issued, he went as low as 50M USD (equivalent) as compared to 150M.  His minimum duration for a bond was 1 year.   He studied 7 currencies over a 12.58 year period (Jan 2004 to July 2016), and I study 10 currencies over a 19.25 year period.
+In comparison, Liao's data set had 35,000 bonds from 4,600 firms.  He also used ``bullet'' bonds where the firm had issued in more than one currency, but his limits were less constrained.   He did not require investment-grade bonds and, for the amount issued, he went as low as 50M USD (equivalent) as compared to 150M.  His minimum duration for a bond was 1 year.   He studied 7 currencies over a 12.58 year period (January 2004 to July 2016), and I study 10 currencies over a 19.25 year period.
 
 There were some problems with the data and some details worth mentioning.  Bloomberg's bond descriptions were occasionally missing necessary data, like coupon rates, maturity date, and even the unique identifier ISIN.  Some had badly formatted credit ratings.  All such bonds were excluded.
 
@@ -673,7 +673,7 @@ The same regression was used, with a few adjustments to the data buckets.
 
 When measuring correlation, RCSD is compared to CIP basis with a 5-year horizon.  RCSD does not have a horizon.  The regression formula in equation~\ref{liao_regression} assumes the fixed-effects for maturity does not depend on the currency, and so RCSD could be compared to CIP basis with any horizon.  Liao's plots use the CIP basis with a 5-year horizon.  I did not find Liao's rationale for the choice.  5-year corporate bonds are common in the data set and 5-year might be close to the median or mean corporate bond duration in the data set.  This work uses a CIP basis with a 5-year horizon so that my results may be compared to Liao's.  
 
-Liao computed correlations and plotted graphs of RCSD and CIP basis for each currency.  The same is done here.  Table~\ref{liao_correl_table} has, for each currency, the correlation between the residual credit spread differential and the CIP basis using swap rates with a 5-year horizon.  When Liao analyzed the currency, its correlation is also in the table.  The table also contains the correlation for a pooled sample of the 9 currencies I studied and the 6 that Liao did.
+Liao computed correlations and plotted graphs of RCSD and CIP basis for each currency.  The same is done here.  Table~\ref{liao_correl_table} has, for each currency, the correlation between the residual credit spread differential and the CIP basis using swap rates with a 5-year horizon.  For Table~\ref{liao_correl_table}, the data is restricted to the 6 currencies and same time period (January 2004 to July 2016) as Liao.  Liao's correlations are presented side-by-side, for comparison.   Table~\ref{liao_correl_table2} has all 9 currencies for the full time period (January 1998 to March 2017).  
 
 \begin{table}[h]
 \caption{\label{liao_correl_table} Correlation of RCSD with CIP basis using swaps}
@@ -696,6 +696,7 @@ all currencies & .71 & .81 \\  % Liao value from the bottom of page 2.
  Note: {\small Correlation of RCSD with CIP basis using swap rates with a 5-year horizon.  Correlations were calculated over the time period January 2004 to July 2016, to match Liao's time period.  The row ``all currencies'' reflects a pooled sample containing these 6 currencies. (Liao did not study SEK, NOK, nor NZD.)}
 \end{table}
 
+As can be seen in Table~\ref{liao_correl_table}, the correlations for individual currencies do not align with Liao's results.  Liao's value for GBP was .74, while mine was .38.  However, the correlation for the pooled sample, with data from all 6 currencies together, is higher and close to Liao's value.  The correlations in  Table~\ref{liao_correl_table2} will be used for comparison in the next section.
 
 \begin{table}[h]
 \caption{\label{liao_correl_table2} Correlation of RCSD with CIP basis using swaps}
@@ -768,9 +769,17 @@ There were fewer than 900 price sample in each month from May 2002 to July 2005.
 
 % \todo{Address data in NOK 2002!}
 
- 
-Figure~\ref{Liao_XY} has comprehensive results, a plot of CIP basis against RCSD.  Panel A contains my results and Panel B contains Liao's results.  The slope of the trend line is .6535 and the r-squared is .5002.  If CIP basis was 0 for the corporate bonds, the slope would be expected to be 1.  
+Figures~\ref{Liao_XY} has comprehensive results for comparing this reproduction to Liao's work.  These are plots of CIP basis against RCSD, with Panel A contains the new results and Panel B contains Liao's results.  Both use the same 6 currencies and the same time period  (January 2004 to July 2016) as Liao used.  The results are largely similar, with Liao's data containing a few points from JPY and CHF with RCSD values less than -100 and my data contain a few points from JPY with RCSD values greater than 50.  The extreme movements that generated these points were in late-2008 to early-2009 and can be seen in Figures~\ref{Liao_JPY} and~\ref{Liao_CHF}.
 
+Figure~\ref{Liao_XY_all} also plots CIP basis against RCSD, but it uses all 9 currencies and covers the full time period studied (January 1998 to March 2017).  From visual inspection, it appeared that only a first-order polynomial function would be necessary to fit the data.  A weighted regression was done using the following equation, for all currencies $c$ and times $t$.
+\begin{equation}
+  \label{F-test-eqn}
+  b_{c, t} = \kappa_1RCSD_{c,t} + \kappa_o + u_{c,t}
+\end{equation}
+
+\noindent where $b_{c,t}$ is the CIP basis using swap rates, $RCSD_{c,t}$ is the RCSD, $u_{c,t}$ is the error, and $\kappa_1$ and $\kappa_0$ are parameters.  The weighted regression used weights equal to the inverse of the clustered standard errors for RCSD.  If Liao's model described the data, we would expect $\kappa_1=1$ and $\kappa_o=0$.  The results from the regression were slope $\kappa_1=.8029$ and x-intercept $\kappa_0=.0002$.  This is the line plotted in Figure~\ref{Liao_XY}.
+
+An F test uses the sum squared errors with constrained parameters, to measure how well data matches a model.   An F test was done with the constrained parameters matching the model's predictions: $\kappa_1=1$ and $\kappa_o=0$.  A na\"ive application of the F test gave an F statistic of .7901 and a p-value of $4.752\times 10^{-7}$.  However, the errors from consecutive data samples were highly correlated.  This is because the CIP basis and RCSD values do not change dramatically within 1 month.  The autocorrelation between errors dropped to near zero if the samples were 18 months apart.  When adjusted for 1/18th the sample size, the p-value is .2387.  This is not strong enough to reject the model. 
 
 \todo{Can I say confidence that the trend line should be slope 1 intercept 0?}
 
@@ -986,7 +995,7 @@ NZD & Y & Y &   & Y &   & Y &   \\
 \newline Source: Central banks
 \end{table}
 
-The goal of replacing swap rates with government rates was to obtain greater accuracy, not to improve the correlation.  But the correlations of the pooled sample did improve from 68\% to 82\%.   Table~\ref{govt_correl_table} has separate correlations for each currency.  
+The goal of replacing swap rates with government rates was to obtain greater accuracy, not to improve the correlation.  But the correlations of the pooled sample did improve from 71\% to 85\%.   Table~\ref{govt_correl_table} has separate correlations for each currency.  
 
 
 \begin{table}[h]
@@ -1078,11 +1087,9 @@ There were fewer than 900 price sample in each month from May 2002 to July 2005.
  
 % Figure~\ref{Govt_NZD} has the plots of NZD.   RCSD using the government graphs follows CIP basis during the extreme movements of late 2008.  Those movements are not present in the CIP basis when calculating swaps. 
 
-Figure~\ref{Govt_XY} has comprehensive results, a plot of CIP basis against RCSD.  Panel A contains results using government rates as the reference rate and Panel B contains results using swap rates.
+Figure~\ref{Govt_XY} has comprehensive results, a plot of CIP basis against RCSD.  Panel A contains results using government rates as the reference rate and Panel B contains the earlier results using swap rates.  The weighted regression from equation \eqref{F-test-eqn} was repeated using government rates and gave a slope $\kappa_1=1.001$ with x-intercept $\kappa_0=-.0001$.  This is closer to the model's prediction of $\kappa_1=1$ and $\kappa_o=0$ than the result from using swap rates as the reference rate, which had a slope $\kappa_1=.8029$ and intercept $\kappa_0=.0002$.
 
-Government rates were used to get better accuracy, not a higher correlation.  But the correlation did improve and the trend line in Figure~\ref{Govt_XY} improves as well.  The slope is closer to 1 (from .6535 to .9154) and a higher r-squared (from .5002 to .7265).
-
-\todo{probability slope is 1 and constant is 0}
+An F test was done on the data using government rates, with constraints $\kappa_1=1$ and $\kappa_o=0$.  The na\"ive application of the F test has an F statistic of .9933 and a p-value of .8884.  As with swap rates, consecutive sample errors were correlated.  When adjusted for 1/18th the sample size, the p-value is .9744.   The model is clearly not rejected.  This p-value is higher than the result using swap rates, .2387.  The model fits better using government rates.  
 
 
 \clearpage
