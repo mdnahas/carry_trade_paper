@@ -341,7 +341,12 @@ latex/paper/images/LiaoSendup_NZD_5Y.pdf: python_2.7/plot_graph2.py data/Liao/re
 latex/paper/images/LiaoSendup_SEK_5Y.pdf: python_2.7/plot_graph2.py data/Liao/regression_results_withCIP.csv data/Corp5Y/regression_results.csv
 	python_2.7/plot_graph2.py SEK SEK_err CIP_basis_XCBS_SEK data/Liao/regression_results_withCIP.csv $@ data/Corp5Y/regression_results.csv SEK SEK_err
 
+#
+# Plot corporate CIP vs govt rate
+#
 
+latex/paper/images/RateVsCIP_govt_corp_5Y.eps: python_2.7/plot_rate_vs_CIP.py data/Corp5Y/regression_results_withCIP.csv
+	python_2.7/plot_rate_vs_CIP.py raw_data/currency_prices/ data/Govt/ 5 govt data/Corp5Y/regression_results_withCIP.csv $@
 
 #
 # List of all images
