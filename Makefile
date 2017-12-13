@@ -418,7 +418,7 @@ latex/talk/talk.pdf: latex/talk/talk.tex latex/paper/paper.bbl $(images)
 	cd latex/talk && pdflatex -halt-on-error talk
 	cd latex/talk && pdflatex -halt-on-error talk
 
-latex/paper/paper.pdf: latex/paper/paper.tex latex/paper/content.tex latex/paper/appendix1.tex latex/paper/appendix2.tex latex/paper/paper.bbl $(images)
+latex/paper/paper.pdf: latex/paper/paper.tex latex/paper/content.tex latex/paper/appendix1.tex latex/paper/appendix2.tex latex/paper/appendix3.tex latex/paper/paper.bbl $(images)
 	cd latex/paper && pdflatex -halt-on-error paper
 	cd latex/paper && pdflatex -halt-on-error paper
 
