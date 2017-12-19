@@ -404,7 +404,7 @@ If both bonds have identical risks, and the forward is risk-free\footnote{This c
 
 % \todo{include the identity $b_{c,c'} = b_{c,c''} - b_{c',c''}$ ?}
 
-The CIP basis\footnote{CIP basis is called ``premium'' or ``cross-currency basis'' in \cite{Du2017} and ``gain'' in \cite{Ito1983}.} is a measure of the CIP deviation.  It is equal to the implied rate from investing in reference foreign currency (USD) minus the rate of investing natively.  It is defined by a transform of equation~\ref{CIP-eqn}.
+The CIP basis\footnote{CIP basis is called ``premium'' or ``cross-currency basis'' in \cite{Du2017} and ``gain'' in \cite{Ito1983}.} is a measure of the CIP deviation.  It is equal to the implied rate from investing in reference foreign currency (USD) minus the rate of investing natively.  It is defined by a transform of equation~\eqref{CIP-eqn}.
 \begin{equation} 
   \label{basis-eqn} 
    b_{EUR} = \frac{S}{F}(1 + r_{USD}) - (1 + r_{EUR})
@@ -671,7 +671,7 @@ The same regression was used, with a few adjustments to the data buckets.
 
 %\todo{ Incorporate the idea that $\alpha$ was for $\gamma$ in the 3 to 7 year bucket, $\beta$ was for a random firm, and $delta$ was for the ``high quality'' bonds.}  I don't think this matters since we're always subtracting one from the other.
 
-When measuring correlation, RCSD is compared to CIP basis with a 5-year horizon.  RCSD does not have a horizon.  The regression formula in equation~\ref{liao_regression} assumes the fixed-effects for maturity does not depend on the currency, and so RCSD could be compared to CIP basis with any horizon.  Liao's plots use the CIP basis with a 5-year horizon.  I did not find Liao's rationale for the choice.  5-year corporate bonds are common in the data set and 5-year might be close to the median or mean corporate bond duration in the data set.  This work uses a CIP basis with a 5-year horizon so that my results may be compared to Liao's.  
+When measuring correlation, RCSD is compared to CIP basis with a 5-year horizon.  RCSD does not have a horizon.  The regression formula in equation~\eqref{liao_regression} assumes the fixed-effects for maturity does not depend on the currency, and so RCSD could be compared to CIP basis with any horizon.  Liao's plots use the CIP basis with a 5-year horizon.  I did not find Liao's rationale for the choice.  5-year corporate bonds are common in the data set and 5-year might be close to the median or mean corporate bond duration in the data set.  This work uses a CIP basis with a 5-year horizon so that my results may be compared to Liao's.  
 
 Liao computed correlations and plotted graphs of RCSD and CIP basis for each currency.  The same is done here.  Table~\ref{liao_correl_table} has, for each currency, the correlation between the residual credit spread differential and the CIP basis using swap rates with a 5-year horizon.  For Table~\ref{liao_correl_table}, the data is restricted to the 6 currencies and same time period (January 2004 to July 2016) as Liao.  Liao's correlations are presented side-by-side, for comparison.   Table~\ref{liao_correl_table2} has all 9 currencies for the full time period (January 1998 to March 2017).  
 
@@ -1277,7 +1277,7 @@ This adjustment includes an additional source of error that comes from the gover
 
 \subsection{Multiple-bond Model}
 
-The model in equation~\ref{first_model} assumes that firms issue at most one bond per currency, but in reality, there may be many.  In this subsection, the single-bond model is modified.  The important change is that errors are allowed to be correlated for bonds that share the same currency and firm.  
+The model in equation~\eqref{first_model} assumes that firms issue at most one bond per currency, but in reality, there may be many.  In this subsection, the single-bond model is modified.  The important change is that errors are allowed to be correlated for bonds that share the same currency and firm.  
 
 \todo{!!!!! Saroj asked ``what does the above sentence mean''}
 
